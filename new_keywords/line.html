@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
-
 <style>
 
 div.tooltip {
@@ -38,6 +38,14 @@ div.tooltip {
   
     font-family: sans-serif;
     font-size: 9pt;
+  }
+
+  .title{
+    text-align: left;
+  }
+
+  .subtitle{
+    text-align: left;
   }
   
   #tooltip {
@@ -115,9 +123,6 @@ div.tooltip {
     
 </style>
 
-
-
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -133,47 +138,96 @@ div.tooltip {
  
      <!-- Load Font Awesome 5 (free) icons -->
      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
- 
- 
-     <!-- <div id='gene_search_container' class='row' ></div>
-       <input id='gene_search_box' type="text" class="form-control" placeholder="Search Keyword" aria-describedby="sizing-addon2" >
-          <button onclick="find_keyword()">search</button> -->
-            
+
+</head>
+
+<body>
+    <!-- Page header -->
+    <section class="hero is-black is-bold noprint">
+      <div class="hero-body">
+        <div class="container">
+          <!-- TODO: Change title -->
+          <h1 class="title">Line Chart</h1>
+          <!-- TODO: Change subtitle -->
+          <h2 class="subtitle">Time series of keywords</h2>
+        </div>
+      </div>
+    </section>
+    <!-- End page header -->
+  
+    <!-- Page navigation -->
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item is-active" href="/index.html">
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span>Home</span>
+          </a>
+  
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+  
+        <div id="main-menu" class="navbar-menu has-text-weight-medium">
+          <!-- Left navbar items -->
+          <div class="navbar-start">
+            <a class="navbar-item" href="#data" title="Data">
+              <span class="icon"><i class="fas fa-table"></i></span>
+              <span>Data</span>
+            </a>
+  
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Visualizations
+              </a>
+  
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="line.html">
+                  <span class="icon"><i class="fas fa-chart-line"></i></span>
+                  <span>Line Chart</span>
+                </a>
+  
+                <a class="navbar-item" href="/bar.html">
+                  <span class="icon"><i class="fas fa-chart-bar"></i></span>
+                  <span>Bar Chart</span>
+                </a>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Right navbar items -->
+          <div class="navbar-end">
+            <a class="navbar-item" href="#about" title="About">
+              <span class="icon"><i class="fas fa-info-circle"></i></span>
+              <span>About</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- End page navigation -->
+  
     
-      
- 
-       <svg id = "line-chart"></svg>
+  <svg id = "line-chart"></svg>
 
-       <div id='gene_search_container' class='row'>
-        <input id='gene_search_box' type="text" class="form-control" placeholder="Search Keyword" aria-describedby="sizing-addon2" >
-        <button onclick="find_keyword()">search</button>
-      </div> 
+  <div id='gene_search_container' class='row'>
+    <input id='gene_search_box' type="text" class="form-control" placeholder="Search Keyword" aria-describedby="sizing-addon2" >
+    <button onclick="find_keyword()">search</button>
+  </div> 
 
-       <div class="col-sm"><div id="slider-range"></div></div>
+  <div class="col-sm"><div id="slider-range"></div></div>
 
-   </head>
- 
      
  <script>
- 
- 
- //https://github.com/wvengen/d3-wordcloud
- //https://github.com/jasondavies/d3-cloud
- //https://bl.ocks.org/cornhundred/1b9404efc32d6b135fab
- //https://stackoverflow.com/questions/50361571/d3-chart-with-search-box
- // http://bl.ocks.org/d3noob/ec6a394a1fe50b8afa103190ba755f4b
-//  https://stackoverflow.com/questions/44977108/d3-adding-dots-to-dynamic-line-chart
-// https://bl.ocks.org/d3noob/0e276dc70bb9184727ee47d6dd06e915
-// https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
 years = [1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019]
  
-//  console.log(years.length)
-//  years = [1981,1982,1983,1984,1985,1986,1987,1988,1989,1990]
-//  years = [1981,1982,1983,1984,1985]
 
- let upper = d3.max(years)
- let lower = d3.min(years)
+let upper = d3.max(years)
+let lower = d3.min(years)
 
 let max = 1985
 let min = 1981
@@ -691,15 +745,7 @@ for (const [key, value] of Object.entries(filtered)) {
 
 // autocomplete(document.getElementById("gene_search_box"), master_keywords);
 
-
-
-
-
-
-
- 
- 
- 
  </script>
+ </body>
  </html>
  
