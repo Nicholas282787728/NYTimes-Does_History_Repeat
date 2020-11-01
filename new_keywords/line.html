@@ -63,8 +63,8 @@ div.tooltip {
     border: 1px solid transparent;
     border-radius: 4px;
 
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: 200px;
     left: 0;
     width: 100%;
 
@@ -510,24 +510,24 @@ const filtered = Object.keys(master_year)
 
 
 
-for (const [key, value] of Object.entries(filtered)) {
-   console.log(value[keyword] + ":" + key)
- 
-   data.push(
-     { year: key,
-   count:(value[keyword] === undefined? 0 : value[keyword])})
- }
-
-// for (const [key, value] of Object.entries(master_year)) {
-//   //  console.log(value[keyword] + ":" + key)
+// for (const [key, value] of Object.entries(filtered)) {
+//    console.log(value[keyword] + ":" + key)
  
 //    data.push(
 //      { year: key,
 //    count:(value[keyword] === undefined? 0 : value[keyword])})
 //  }
+
+for (const [key, value] of Object.entries(master_year)) {
+  //  console.log(value[keyword] + ":" + key)
+ 
+   data.push(
+     { year: key,
+   count:(value[keyword] === undefined? 0 : value[keyword])})
+ }
   
  count = data.map(value => value.count);
- dates = data.map(value => value.year);
+//  dates = data.map(value => value.year);
  
  const allEqual = arr => arr.every(v => v === arr[0]);
 
@@ -542,9 +542,9 @@ for (const [key, value] of Object.entries(filtered)) {
  
 
   
-//  data = data.filter(value => value.year <= max && value.year >= min);
-//  dates = data.map(value => value.year);
-//  count = data.map(value => value.count);
+ data = data.filter(value => value.year <= max && value.year >= min);
+ dates = data.map(value => value.year);
+ count = data.map(value => value.count);
  
 //  console.log(count)
 //  console.log(dates)
@@ -640,7 +640,8 @@ for (const [key, value] of Object.entries(filtered)) {
       d3.select("g").selectAll("circle").transition()
        .delay(750)
        .duration(750)
-       .attr("r",5)
+      //  .attr("r",5)
+      .attr("r", function(d){ (d.count > 0) ? x = 5 : x = 0; return x;})
       
  }
  
