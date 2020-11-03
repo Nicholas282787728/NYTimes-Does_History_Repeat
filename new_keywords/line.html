@@ -19,10 +19,15 @@ div.tooltip {
     stroke: rgba(0, 0, 0, 0.644)
 } */
     .line {
-          fill: none;
-          stroke: #000000b0;
-          stroke-width: 3;
+        fill: none;
+        stroke: #000000b0;
+        stroke-width: 3;
         }
+
+            
+    .area {
+        fill: rgba(110, 110, 110, 0.733);
+    }
           
     
 
@@ -264,6 +269,11 @@ let min = 1981
    
    var yScale = d3.scaleLinear()
        .range([config.svg.height, 0]); 
+
+    var area = d3.area()
+    .x(function(d) { return xScale(d.year); })
+    .y0(config.svg.height)
+    .y1(function(d) { return yScale(d.count); });
          
  var line = d3.line()
        .x(function(d) { return xScale(d.year); }) // set the x values for the line generator
@@ -460,6 +470,11 @@ var sliderRange = d3
              .attr("class", "line") 
              .attr("d", line); 
 
+        svg.append("path")
+            .datum(data)
+            .attr("class", "area")
+            .attr("d", area);
+
         
          svg.append("g").selectAll("circle")
           .data(data)
@@ -575,7 +590,9 @@ for (const [key, value] of Object.entries(master_year)) {
  
      svg.select(".y.axis").duration(750).call(d3.axisLeft(yScale).ticks(6,"f"));
  
-     svg.select(".line").duration(750).ease(d3.easeLinear).attr("d", line(data)); 
+     svg.select(".line").duration(750).ease(d3.easeLinear).attr("d", line(data));
+
+     svg.select(".area").duration(750).ease(d3.easeLinear).attr("d", area(data)); 
  
      var dot = d3.select("g").selectAll("circle").data(data)
 
