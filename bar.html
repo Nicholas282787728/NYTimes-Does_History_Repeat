@@ -18,10 +18,31 @@
 }
 
 
+div.tooltip {
+  position: absolute;
+  text-align: center;
+	top: 150px;
+	left: 650px;
+  width: 150px;
+} 
+
+
   #wrapper-chart{
-    position: relative;
-    left: 400px;
+
+    /* position: relative;
+    left: 400px; 
     /* top: 40px;  */
+
+  width: 100px;
+	height: 100px;
+	
+	position: relative;
+	top: 10px;
+	bottom: 0;
+	left: -500px;
+	right: 0;
+  	
+	margin: auto;
   }
 
 
@@ -169,7 +190,7 @@ var x = d3.scaleLinear()
 
 
 
-          var color = d3.scaleOrdinal().range(["#2ca02c","#00acc1","#f89d4e","#c24e9f","#e93018"]);
+var color = d3.scaleOrdinal().range(["#2ca02c","#00acc1","#f89d4e","#c24e9f","#e93018"]);
           
 
 var svg = d3.select("body").select(".graph").append("svg")
@@ -177,7 +198,7 @@ var svg = d3.select("body").select(".graph").append("svg")
     .attr("height", height + margin.top )
   .append("g")
     .attr("transform", 
-          "translate(" + margin.left + "," + margin.top  + ")");
+          "translate(" + margin.left + "," + margin.top   + ")");
 
 
 var div = d3.select("body").select(".graph").append("div")
@@ -214,19 +235,19 @@ var number = d3.format(",");
       .attr("fill", function (d){ return color(d.key); })
       .on('mouseover', function(event, d) {
           div.transition()
-               .duration(200)
-               .style("opacity", .9);
+               .duration(100)
+               .style("opacity", 1);
 
           div.html("Total Count:     " + number(d.count))
-              .style("position", "fixed") 
-               .style("left", (1000) + "px")             
-               .style("top", (400) + "px");
+              // .style("position", "fixed") 
+              //  .style("left", (1000) + "px")             
+              //  .style("top", (400) + "px");
 
   		})
   		.on('mouseout', function(d) {
           
           div.transition()
-                .duration(200)
+                // .duration(200)
                 .style("opacity", 0);
              
       });
@@ -247,35 +268,35 @@ xaxis_svg.append('g')
 
 xaxis_svg.append("circle")
   .attr("cx", 20)
-  .attr("cy", 29)
+  .attr("cy", margin.bottom)
   .attr("r", 5)
   .style("fill", color("creative_works"))
   .style("stroke", "black")
 
   xaxis_svg.append("circle")
-  .attr("cx", 135)
-  .attr("cy", 29)
+  .attr("cx", 145)
+  .attr("cy", margin.bottom)
   .attr("r", 5)
   .style("fill",  color("persons"))
   .style("stroke", "black")
 
   xaxis_svg.append("circle")
-  .attr("cx", 205)
-  .attr("cy", 29)
+  .attr("cx", 230)
+  .attr("cy", margin.bottom)
   .attr("r", 5)
   .style("fill",  color("organizations"))
   .style("stroke", "black")
   
   xaxis_svg.append("circle")
-  .attr("cx", 315)
-  .attr("cy", 29)
+  .attr("cx", 350)
+  .attr("cy", margin.bottom)
   .attr("r", 5)
   .style("fill", color("subject"))
   .style("stroke", "black")
 
   xaxis_svg.append("circle")
-  .attr("cx", 380)
-  .attr("cy", 29)
+  .attr("cx", 430)
+  .attr("cy", margin.bottom)
   .attr("r", 5)
   .style("fill", color("glocations"))
   .style("stroke", "black")
@@ -284,35 +305,35 @@ xaxis_svg.append("circle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 26)
+  .attr("x", 30)
   .attr("y", 34)
   .text("creative works")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 141)
+  .attr("x", 155)
   .attr("y", 34)
   .text("persons")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x",211)
+  .attr("x",240)
   .attr("y", 34)
   .text("organizations")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 321)
+  .attr("x", 360)
   .attr("y", 34)
   .text("subject")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 386)
+  .attr("x", 440)
   .attr("y", 34)
   .text("glocations")
   .attr("alignment-baseline", "middle")
