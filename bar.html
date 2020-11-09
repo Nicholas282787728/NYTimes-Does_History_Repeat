@@ -14,8 +14,8 @@
 
 .y {
   font: 11px sans-serif Arial; 
-  font-weight: bold;
-  /* color: black; */
+  /* font-weight: bold; */
+  color: black;
 }
 
 
@@ -182,7 +182,8 @@ var margin = {top: 19, right: 20, bottom: 28, left: 250},
 // // set the ranges
 var y = d3.scaleBand()
           .range([0, height])
-          .padding(0.45);
+          .padding(0.5);
+          
 
 var x = d3.scaleLinear()
           .range([0, width]);
@@ -234,6 +235,7 @@ var number = d3.format(",");
       .attr("y", function(d) { return y(d.value); })
       .attr("height", y.bandwidth())
       .attr("fill", function (d){ return color(d.key); })
+    
       .on('mouseover', function(event, d) {
           div.transition()
                .duration(100)
