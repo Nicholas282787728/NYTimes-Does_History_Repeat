@@ -21,7 +21,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">Does History Repeat Itself ?</h1>
-        <h2 class="subtitle">Website Subtitle</h2>
+        <!-- <h2 class="subtitle">Website Subtitle</h2> -->
       </div>
     </div>
   </section>
@@ -89,35 +89,46 @@
     <div class="container">
       <!-- Begin page content -->
       <div class="content">
-        <h1 class="title">
-          Page Title
+        <h1 class="title" id="data">
+         Data
         </h1>
-        <p class="subtitle">
+        <!-- <p class="subtitle">
           Page Subtitle
+        </p> -->
+
+        <p>Welcome to the data page! On this page I let you know where I got my data from and the hurdles I had to overcome to make my visualization with it. I also included some discovers I found through the process and code snippets
+          that can help you make your project with this data or at least for you to better understand the problems I had to make it work.
         </p>
 
-        <p>This would be an excellent place to describe what this page is for, what to find in different sections, describe any motivation or theme behind your visualizations, and so on.</p>
+        <h2>Data Source</h2>
 
-        <p>You should not use this template unless you intend to customize it. Make it your own. Keep in mind this simple template is over 300 lines! You can see other examples of websites using Bulma at their showcase: <a href="https://bulma.io/expo/">bulma.io/expo/</a>.</p>
-
-        <h2 id="data">Data</h2>
-
-        <p>The dataset that I used was from The New York Times's <a href="https://developer.nytimes.com/docs/archive-product/1/overview">The Archive API</a>, an API that returns an array of NYT articles for a given month, going back to 1851. You simply pass the API the year and month and it returns a JSON object with all articles for that month.</p>
+        <p>  The dataset I used was from The New York Times's <a href="https://developer.nytimes.com/docs/archive-product/1/overview">The Archive API</a>, an API that returns a collection of NYT articles for a given month, going back to 1851 until currently 2019. 
+          You simply need to put the year and month to API request call and it returns you all articles for that month.
+        </p>
 
         <h4>Example Call</h4>
         <pre>https://api.nytimes.com/svc/archive/v1/{year}/{month}.json?api-key={yourkey}</pre>
 
+
+        <p>The articles that I used were U.S. news articles; Since I wanted to contain my scope to at least the United States and not globally for now. Also, there are many different material sources that I  
+          did not want to use such as Biography, Blogs, or Letters, that I felt were a little too much to explore. So I chose to filter out only USA news articles since I believed it was close to the theme for exploring the change of history as news articles are a way to look back on past events.
+        </p>
+
+
         <h4>Schema</h4>
-        <p>(will be filled in later)</p>
+        <p>The data that is returned from the API call is very rich. For an article, it includes information such as title, leading paragraph, word count, publish date, keywords, author, newsdesk, and much more. Currently, I am using keywords and publish date to build my current visualizations but I am planning some other visualizations to use the other included data. Listed below are some labels that I am using so far: </p>
+        
         <ol>
-            <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+            <li><strong>Keywords:</strong> a list of keywords that are used to describe the content of the document. The keyword has info on the type of category it under, ranking, and  major.</li>
   
-            <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+            <li><strong>Pub_date:</strong> the timestamp of when the document was published.</li>
   
-            <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+            <li><strong>Document_type:</strong> the type of document that is returned back such as an article or paid post for instance.</li>
   
-            <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
-          </ol>
+            <li><strong>Type_of_material:</strong> the type of material that is being covered in the document such as news, blog, video, summary, letter, etc.</li>
+
+            <li><strong>Section_name:</strong> this describes the section or category that the document is under such as either arts, books, education, fashion, world, U.S., and other types.</li>
+        </ol>
 
         <h4>License</h4>
         <blockquote>
@@ -130,17 +141,394 @@
         
         <h3 id="wrangling">Wrangling</h3>
 
-        <p>(will be filled in later)</p>
+        <p>After a couple of trial and error, I managed to get the New York Times U.S. news articles from 1981 till 2019. The reason I started in 1981 was because I notice that keywords started to appear most prominent in 1981 as I was reviewing the data, So I put it as the starting point for now. 
+          Another thing I did not include articles that having missing document type or type of material fields; it seems that some documents are missing one of these fields. Since I used both of those fields to determine if a document is a news article; I felt it was not right to assume it's an article if it was news or vise versa
+          so I decided not to count it but instead count how many times these occurrences happened.
+       </p>
 
-        <pre>
-You can even put code into these pre blocks.
-  It will preserve whitespace.
-    That is helpful for formatted code.
-        </pre>
-
-        <p>You can alternatively embed a Gist if you want. There is an "embed" button on <a href="https://gist.github.com/octocat/6cad326836d38bd3a7ae">the Gist page</a> and results in something like this:</p>
-
+       <div style="height:400px;overflow:auto;">
         <script src="https://gist.github.com/Alegar917/3bfedff1100e08b58d9d8c9e48d7b258.js"></script>
+      </div>
+        <p>(You can also check it out at <a href="https://gist.github.com/Alegar917/3bfedff1100e08b58d9d8c9e48d7b258">the Gist page</a>!)</p>
+      
+        <p>
+          After finally getting all the data and having a chance to test it out, I realized there were more problems than I expected. The two major challenges that I faced were irregular special characters in keywords and duplicate articles.
+          As I was going through the data, I realized that there were duplicates of the same articles. At first, I thought the duplicated articles were maybe corrections of previous articles but in reality that was not the case. As the articles had the same publish date and information
+          and no indication of it being a correction so this was a big thing I had to fix since this breaks the integrity of the data. So I created a function to remove all the duplicates articles in the data. At the same time, I realized that some keywords
+          had irregular symbols such as "<", "[","-", "@"", etc which did not make so much sense at all that it was there. So I replaced those irregular symbols with an empty space and I also removed one letter or empty keywords from the data itself.
+       </p>
+
+
+       <div style="height:400px;overflow:auto;">
+        <div id="dataviztable_30069">
+          <table class="table is-bordered pricing__table is-fullwidth">
+           <col width=209 style='mso-width-source:userset;mso-width-alt:6698;width:157pt'>
+           <col width=149 style='mso-width-source:userset;mso-width-alt:4778;width:112pt'>
+           <col width=208 span=2 style='mso-width-source:userset;mso-width-alt:6656;
+           width:156pt'>
+
+           <tr height=21 style='height:16.0pt;  background-color: rgb(59, 163, 220)'>
+            <td height=21 class=xl63 width=209 style='height:16.0pt;width:157pt'>Year</td>
+            <td class=xl63 width=149 style='border-left:none;width:112pt'>OldSize (with duplicates)</td>
+            <td class=xl63 width=208 style='border-left:none;width:156pt'>missed</td>
+            <td class=xl63 width=208 style='border-left:none;width:156pt'>NewSize (after removing duplicates)</td>
+            <td class=xl63 width=208 style='border-left:none;width:156pt'>Difference in size</td>
+           </tr>
+
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1981</td>
+            <td class=xl65 style='border-top:none;border-left:none'>15558</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10330</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5228</td>
+           </tr>
+           
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1982</td>
+            <td class=xl65 style='border-top:none;border-left:none'>15649</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10408</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5241</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1983</td>
+            <td class=xl65 style='border-top:none;border-left:none'>14336</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>9515</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4821</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1984</td>
+            <td class=xl65 style='border-top:none;border-left:none'>18371</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>12142</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6229</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1985</td>
+            <td class=xl65 style='border-top:none;border-left:none'>16497</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10955</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5542</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1986</td>
+            <td class=xl65 style='border-top:none;border-left:none'>16773</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>11225</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5548</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1987</td>
+            <td class=xl65 style='border-top:none;border-left:none'>15065</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>9972</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5093</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1988</td>
+            <td class=xl65 style='border-top:none;border-left:none'>15913</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10537</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5376</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1989</td>
+            <td class=xl65 style='border-top:none;border-left:none'>12451</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8265</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4186</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1990</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10500</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6985</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3515</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1991</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10241</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6762</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3479</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1992</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8927</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5905</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3022</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1993</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7476</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4994</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2482</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1994</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7114</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4727</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2387</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1995</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7964</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5313</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2651</td>
+           </tr>
+
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1995</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7964</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5313</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2651</td>
+           </tr>
+
+            <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1996</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8917</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>45</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5926</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2991</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1997</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6952</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4648</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2304</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1998</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7449</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>10</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4928</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2521</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>1999</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6773</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>24</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4493</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2280</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2000</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10111</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>1</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6741</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3370</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2001</td>
+            <td class=xl65 style='border-top:none;border-left:none'>12498</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>1</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8333</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4165</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2002</td>
+            <td class=xl65 style='border-top:none;border-left:none'>12277</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>9</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8198</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4079</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2003</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10419</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>6</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6950</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3469</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2004</td>
+            <td class=xl65 style='border-top:none;border-left:none'>13424</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>3</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8876</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4548</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2005</td>
+            <td class=xl65 style='border-top:none;border-left:none'>13664</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>9</td>
+            <td class=xl65 style='border-top:none;border-left:none'>9108</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4556</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2006</td>
+            <td class=xl65 style='border-top:none;border-left:none'>15668</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>90</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10377</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5291</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2007</td>
+            <td class=xl65 style='border-top:none;border-left:none'>9764</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>246</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6501</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3263 </td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2008</td>
+            <td class=xl65 style='border-top:none;border-left:none'>12334</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>414</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8191</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4143</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2009</td>
+            <td class=xl65 style='border-top:none;border-left:none'>9030</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>16308</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6013</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3017</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2010</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6493</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>68510</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4306</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2187</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2011</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10346</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>24673</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6945</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3401</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2012</td>
+            <td class=xl65 style='border-top:none;border-left:none'>12275</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8148</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4127</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2013</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7677</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5101</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2576</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2014</td>
+            <td class=xl65 style='border-top:none;border-left:none'>9527</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6271</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3256</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2015</td>
+            <td class=xl65 style='border-top:none;border-left:none'>11172</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7416</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3756</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2016</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10363</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>6858</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3505</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2017</td>
+            <td class=xl65 style='border-top:none;border-left:none'>8266</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>5498</td>
+            <td class=xl65 style='border-top:none;border-left:none'>2768</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2018</td>
+            <td class=xl65 style='border-top:none;border-left:none'>4987</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>13098</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3318</td>
+            <td class=xl65 style='border-top:none;border-left:none'>1669</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>2019</td>
+            <td class=xl65 style='border-top:none;border-left:none'>10781</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>0</td>
+            <td class=xl65 style='border-top:none;border-left:none'>7208</td>
+            <td class=xl65 style='border-top:none;border-left:none'>3573</td>
+           </tr>
+
+           <tr height=21 style='height:16.0pt; background-color: rgb(59, 163, 220)'>
+            <td height=21 class=xl64 style='height:16.0pt;border-top:none'>Total</td>
+            <td class=xl65 style='border-top:none;border-left:none'>434002</td>
+            <td class=xl66 width=208 style='border-top:none;border-left:none;width:156pt'>123447</td>
+            <td class=xl65 style='border-top:none;border-left:none'>288387</td>
+            <td class=xl65 style='border-top:none;border-left:none'>145615</td>
+           </tr>
+
+           <tr height=0 style='display:none'>
+            <td width=209 style='width:157pt'></td>
+            <td width=149 style='width:112pt'></td>
+            <td width=208 style='width:156pt'></td>
+           </tr>
+          </table>
+        </div>
+        </div>
+    <p><b>**note:</b> I do not know what is the accurate missed after removing duplicates because I never added missing field articles in the first place so I do not know if those missed articles had or were duplicates</p>
+
+    <br>   
+
+  <p>
+    Besides the massive clean up of the data, I also did some modification to the data to better improve the interaction between the visualization and users. One thing I did was lowercase the keywords to get more accurate numbers for counting the keywords and for searching; for instance, some keywords had leading capitalization or 
+    full capitalization for all words. An example of this was "United States" and "UNITED STATES" these keywords should be treated as the same even if they are capitalized differently. Later on, I am thinking of maybe stemming the keywords more so I can include acronyms and different tenses of a word into the one count. 
+    The other customization was for names of people, NYT wrote people names in "last name, first name middle initial" order. Even though that order is not a bad thing, I felt for searching and viewing the visualizations that could cause some confusion for the users to see. So I parsed the names into the common "first name middle initial last name" order
+    that is familiar to most people. 
+  </p>
+
+
+  <div style="height:400px;overflow:auto;">
+    <script src="https://gist.github.com/Alegar917/0242185c2edcaa062405eca4a55550e1.js"></script>
+  </div>
+  <p>(You can also check it out at <a href="https://gist.github.com/Alegar917/0242185c2edcaa062405eca4a55550e1">the Gist page</a>!)</p>
 
     </div>
     <!-- End page content -->
