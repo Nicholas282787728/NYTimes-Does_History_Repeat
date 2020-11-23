@@ -211,6 +211,11 @@ div.tooltip {
             <span class="icon"><i class="fas fa-info-circle"></i></span>
             <span>About</span>
           </a>
+
+          <a class="navbar-item" href="/NYTimes-Does_History_Repeat/cited.html" title="Acknowledgment">
+            <span class="icon"><i class="fas fa-clipboard-list"></i></span>
+            <span>Acknowledgment</span>
+          </a>
         </div>
       </div>
     </div>
@@ -783,6 +788,58 @@ for (const [key, value] of Object.entries(master_year)) {
 // autocomplete(document.getElementById("gene_search_box"), master_keywords);
 
  </script>
- </body>
- </html>
+ 
+  <!-- Page footer -->
+  <!-- https://bulma.io/documentation/layout/footer/ -->
+  <footer class="footer">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="#top">
+          <span class="fas fa-arrow-up"></span>
+          <span class="has-text-weight-medium">Back to Top</span>
+        </a>
+      </p>
+
+      <p>
+        <a href="https://github.com/Alegar917/NYTimes-Does_History_Repeat" class="button is-small" style="padding-left: 1em; padding-right: 1em;">
+          <i class="fab fa-github-alt"></i>&nbsp;<strong>Github</strong>
+        </a>
+
+        <a href="https://fontawesome.com/" class="button is-small" style="padding-left: 1em; padding-right: 1em;">
+          <i class="fab fa-font-awesome"></i>&nbsp;<strong>FontAwesome</strong>
+        </a>
+
+        <a href="https://bulma.io" class="button is-small">
+          <img src="https://bulma.io/images/made-with-bulma--semiblack.png" alt="Made with Bulma" width="128" height="24">
+        </a>
+        
+        <a href="https://developer.nytimes.com" class="button is-small">
+          <img src="https://developer.nytimes.com/files/poweredby_nytimes_200a.png?v=1583354208344" alt="Data provided by The New York Times" width="128" height="24">
+        </a>
+      </p>
+    </div>
+  </footer>
+  <!-- End page footer -->
+
+  <!-- Mobile menu responsiveness -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+  </script>
+  <!-- End mobile menu responsiveness -->
+  </body>
+
+</html>
  
