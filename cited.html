@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>About</title>
+    <title>Acknowledgements</title>
 
     <!-- Load Bulma from CDN (consider saving it to repository instead) -->
     <!-- https://bulma.io/ -->
@@ -17,6 +17,7 @@
   <body>
 
   <!-- Page header -->
+  <!-- https://bulma.io/documentation/layout/hero/ -->
   <section class="hero is-info noprint">
     <div class="hero-body">
       <div class="container">
@@ -27,11 +28,12 @@
   </section>
   <!-- End page header -->
 
-  <!-- Page navigation -->
+ <!-- Page navigation -->
   <nav class="navbar is-info" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item" href="index.html">
+
+        <a class="navbar-item is-active" href="index.html">
           <span class="icon"><i class="fas fa-home"></i></span>
           <span>Home</span>
         </a>
@@ -51,6 +53,7 @@
             <span>Data</span>
           </a>
 
+          <!-- TODO: Modify or remove dropdown -->
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               Visualizations
@@ -74,11 +77,11 @@
         <!-- Right navbar items -->
         <div class="navbar-end">
 
-          <a class="navbar-item is-active" href="about.html" title="About">
+          <a class="navbar-item" href="about.html" title="About">
             <span class="icon"><i class="fas fa-info-circle"></i></span>
             <span>About</span>
           </a>
-
+           
           <a class="navbar-item" href="cited.html" title="Acknowledgment">
             <span class="icon"><i class="fas fa-clipboard-list"></i></span>
             <span>Acknowledgment</span>
@@ -89,55 +92,44 @@
   </nav>
   <!-- End page navigation -->
 
-
   <section class="section">
     <div class="container">
       <!-- Begin page content -->
       <div class="content">
+        <h1 class="title">
+          Acknowledgments
+        </h1>
 
-        <h1 id="about">About Me</h1>
+        <p>
+          I want to give credit and thanks to the sources that I used to help me create my visualization along the process. I would not be able to do this project without the help of NYT API and the help of other people's visualizations 
+          that I used for inspiration. Listed below are the links I used to help create this project: 
+        </p>
 
-        <!-- Profile box -->
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-128x128"><img class="is-rounded" src="Profile.jpg"></p>
-          </figure>
+        <h3>Data</h3>
+        <p><a href="https://developer.nytimes.com/">Link to the Data source</a></p>
 
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Alejandro Garcia</strong><br/>
-                <em>B.S in Computer Science</em>, <a href="https://www.usfca.edu/">University of San Francisco</a><br/>
-                <i class="fas fa-envelope"></i> <a href="mailto:alegar917@gmail.com">alegar917@gmail.com</a>
-              </p>
+        <h3>Top 100 NYT Keywords(1891-2019) Visualization</h3>
+        <p>
+          <a href="https://bl.ocks.org/caravinden/eb0e5a2b38c8815919290fa838c6b63b">Link to Horizontal Bar chart Bl.ocks</a><br>
+          <a href="https://observablehq.com/@will-r-chase/scrollable-bar-chart">Link to Scrollable Bar chart Observable</a><br>
+          <a href=" https://codepen.io/ahmohamed/pen/mJJqyL">Link to another Scrollable Bar chart</a>
+        </p>
 
-              <p>
-                Hey, my name is Alejandro, I am a recent grad from the University of San Francisco. Some of my interests in the CS field are Data Visualizations, Cloud, Databases, and Backend. I am currently searching for a fulltime position in software engineering, so while I am searching for employment 
-                I decided to make my own projects from my interest.<br><br>
-                Some fun facts about myself are that I was born in Miami, Flordia, my hobbies are photography/film making and editing and playing video games, and I am currently learning Japanese to become trilingual. Come check out my <a href="https://www.linkedin.com/in/alegar917/">Linkedin</a>, and <a href="https://github.com/Alegar917">Github</a> to know about me or to check what I am scheming up. 
-              </p>
+        <h3>Time Series of NYT Keywords Visualization</h3>
+        <p>
+          <a href="https://bl.ocks.org/cornhundred/1b9404efc32d6b135fab">Link to searching/updating visualization Bl.ocks</a><br>
+          <a href="http://bl.ocks.org/d3noob/ec6a394a1fe50b8afa103190ba755f4b">Link to tooltip Line chart Bl.ocks</a><br>
+          <a href="https://stackoverflow.com/questions/44977108/d3-adding-dots-to-dynamic-line-chart">Link to StackOverflow snippet</a>
+        </p>
 
-              <div class="heading">Skills</div>
 
-              <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">C</span>
-                <span class="tag">Java</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">HTML/CSS</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <!-- End profile box -->
-
+      </div>
+       <!-- End page content -->
     </div>
-    <!-- End page content -->
-    </div>
-</section>
+  </section>
 
-
-<!-- Page footer -->
+    <!-- Page footer -->
+  <!-- https://bulma.io/documentation/layout/footer/ -->
   <footer class="footer">
     <div class="content has-text-centered is-size-7">
       <p>
@@ -159,10 +151,10 @@
         <a href="https://bulma.io" class="button is-small">
           <img src="https://bulma.io/images/made-with-bulma--semiblack.png" alt="Made with Bulma" width="128" height="24">
         </a>
-
+        
         <a href="https://developer.nytimes.com" class="button is-small">
-            <img src="https://developer.nytimes.com/files/poweredby_nytimes_200a.png?v=1583354208344" alt="Data provided by The New York Times" width="128" height="24">
-          </a>
+          <img src="https://developer.nytimes.com/files/poweredby_nytimes_200a.png?v=1583354208344" alt="Data provided by The New York Times" width="128" height="24">
+        </a>
       </p>
     </div>
   </footer>
@@ -187,5 +179,5 @@
   </script>
   <!-- End mobile menu responsiveness -->
   </body>
-</html>
 
+</html>

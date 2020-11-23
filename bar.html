@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<html>
 <style> 
 
 .bar:hover {
@@ -45,7 +46,6 @@ div.tooltip {
   	
 	margin: auto;
   }
-
 
 </style>
 
@@ -126,22 +126,33 @@ div.tooltip {
 
         <!-- Right navbar items -->
         <div class="navbar-end">
+          
           <a class="navbar-item" href="about.html" title="About">
             <span class="icon"><i class="fas fa-info-circle"></i></span>
             <span>About</span>
           </a>
+
+          <a class="navbar-item" href="cited.html" title="Acknowledgment">
+            <span class="icon"><i class="fas fa-clipboard-list"></i></span>
+            <span>Acknowledgment</span>
+          </a>
+
         </div>
       </div>
     </div>
   </nav>
   <!-- End page navigation -->
 
+  
+
+
   <div  id="wrapper-chart" >
     <div class="graph" id="viz" style="width: 1000px; height: 400px; overflow-y: scroll "> </div>
     <div id="xaxis"></div>
     <!-- <div class = "legend" id="legend"></div> -->
-</div>
+  </div>
 
+  
 <script>
 
 d3.json("CategoryResult.json").then(function(json) {
@@ -151,8 +162,6 @@ data = []
 for(i = 0; i < 100; i++) {
 data.push(json[i])
 }
-
-// console.log(data)
 
 word = data.map(value => value.value);
 count = data.map(value => value.count);
@@ -342,5 +351,25 @@ xaxis_svg.append("circle")
 })
 
 </script>
-</body>
+
+
+  <!-- Mobile menu responsiveness -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+  </script>
+  <!-- End mobile menu responsiveness -->
+  </body>
 </html>
