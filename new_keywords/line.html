@@ -153,7 +153,7 @@ div.tooltip {
       <div class="hero-body">
         <div class="container">
           <h1 class="title">Does History Repeat Itself ?</h1>
-          <h2 class="subtitle">Time series of NY times keywords</h2>
+          <!-- <h2 class="subtitle">Time series of NY times keywords</h2> -->
         </div>
       </div>
     </section>
@@ -221,7 +221,16 @@ div.tooltip {
     </div>
   </nav>
   <!-- End page navigation -->
+
+
   
+  <section class="section">
+    <div class="container">
+      <!-- Begin page content -->
+      <div class="content">
+        <h1 class="title has-text-centered">
+          Time Series of NYT Keywords
+        </h1>
     
   <svg id = "line-chart"></svg>
 
@@ -231,6 +240,25 @@ div.tooltip {
   </div> 
 
   <div class="col-sm"><div id="slider-range"></div></div>
+
+  <h2 class="has-text-left">About Visualization</h2>
+
+  <p  class="has-text-left">This visualization showcases the trend of a keyword that is inputted in the search bar from U.S. news article ranging from 1891 up to 2019, as your free to lower/increase the scope of years to see based on your interest.
+    This chart allows you to see the change in the number of articles that the searched keyword appeared in as the year progresses.
+     So feel free to mess around with it and see if you can find any trends or any interesting finds. 
+  </p>
+
+  <h2  class="has-text-left">Interactivity</h2>
+
+  <p  class="has-text-left">For interactivity, this graph supports a tooltip so when you hover on top of a dot it will display the total count of U.S. news articles that had that keyword appear for that year. Another tool is the range slider which sets the range of the starting point year for the graph to start displaying from and the endpoint year to stop at.
+    So you can set it up to see up to two years minimum (ex. 1981-1982) or maximally you can see all the years (ex. 1981-2019) or you can have different time scopes for instance like 3 years, 5 years, 10 years, etc;
+    you're free to set the range of years your interested in.
+  </p>
+
+  </div>
+  <!-- End page content -->
+  </div>
+  </section>
 
      
  <script>
@@ -275,7 +303,7 @@ let min = 1981
          
    
    config.margin.top = 100;
-   config.margin.right = 20;
+   config.margin.right = 50;
    config.margin.bottom = 50;
    config.margin.left = 70;
  
@@ -350,7 +378,7 @@ var sliderRange = d3
     .select('div#slider-range')
     .append('svg')
     .attr("width", config.svg.width + config.margin.left + config.margin.right)
-    .attr("height", config.svg.height + config.margin.top + config.margin.bottom)
+    .attr("height", 150)
     .append('g')
     .attr("transform", "translate(" + (config.margin.left + 300) + "," + config.margin.top + ")")
     .call(sliderRange);
@@ -398,7 +426,7 @@ var sliderRange = d3
  
  
  function find_keyword(){
-   keyword = document.getElementById("gene_search_box").value.toLowerCase()
+   keyword = document.getElementById("gene_search_box").value.toLowerCase().trim()
  
    if (keyword === ""){
      keyword = "united states"
