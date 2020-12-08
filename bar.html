@@ -23,15 +23,31 @@
 div.tooltip {
   position: absolute;
   text-align: center;
-	/* top: 150px;
-	left: 600px; */
-  top: 200px;
-	left: 700px;
+	top: 150px;
+	left: 600px;
   width: 350px;
 } 
 
 
+  #wrapper-chart{
 
+    /* position: relative;
+    left: 400px; 
+    /* top: 40px;  */
+
+  /* width: 100px;
+	height: 100px; */
+	
+
+	position: relative;
+	/* top: 10px;
+	bottom: 0;
+	left: -500px;
+	/* right: 0; */
+  top: 30px;
+	left: 100px;
+
+  }
 
 </style>
 
@@ -39,6 +55,7 @@ div.tooltip {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <script src="https://d3js.org/d3.v6.min.js"></script>
 
   <!-- TODO: Change title -->
@@ -139,7 +156,7 @@ div.tooltip {
         </h1>
 
         <div  id="wrapper-chart" >
-          <div class="graph" id="viz" style="width: 1150px; height: 400px; overflow-y: scroll "> </div>
+          <div class="graph" id="viz" style="min-width: 500px; width: 1000px; height: 400px; overflow-y: scroll "> </div>
           <div id="xaxis"></div>
         </div>
 
@@ -184,6 +201,11 @@ category = maxcategory.filter((c, index) => {
     return maxcategory.indexOf(c) === index;
 });
 
+console.log(category)
+
+
+
+
 var margin = {top: 19, right: 20, bottom: 28, left: 250},
     width = 960 - margin.left - margin.right,
     height = 1100 - margin.top - margin.bottom;
@@ -205,11 +227,11 @@ var color = d3.scaleOrdinal().range(["#2ca02c","#00acc1","#f89d4e","#c24e9f","#e
           
 
 var svg = d3.select("body").select(".graph").append("svg")
-    .attr("width", 1100)
+    .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top )
   .append("g")
     .attr("transform", 
-          "translate(" + 400 + "," + margin.top   + ")");
+          "translate(" + margin.left + "," + margin.top   + ")");
 
 
 var div = d3.select("body").select(".graph").append("div")
@@ -218,10 +240,10 @@ var div = d3.select("body").select(".graph").append("div")
 
 var xaxis_svg = d3.select('#xaxis')
     .append('svg')
-    .attr("width", 1100)
+    .attr("width", width + margin.left + margin.right)
   	.attr("height", margin.bottom + 100)
     .append('g')
-    .attr("transform", "translate(" + 400 + "," + 0 + ")");
+    .attr("transform", "translate(" + margin.left + "," + 0 + ")");
 
 
 
