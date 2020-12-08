@@ -3,6 +3,23 @@
 <html>
 <style> 
 
+@media screen  and (max-width: 979px) /* Tablet */ {
+  #viz{
+    width: 1000px; 
+    height: 400px; 
+    overflow-y: scroll;
+    transform: translate(-150px, 0px);
+
+  }
+
+  #xaxis{
+    transform: translate(-150px, 0px);
+  }
+
+}
+
+
+
 .bar:hover {
   fill: brown;
 }
@@ -30,15 +47,6 @@ div.tooltip {
 
 
   #wrapper-chart{
-
-    /* position: relative;
-    left: 400px; 
-    /* top: 40px;  */
-
-  /* width: 100px;
-	height: 100px; */
-	
-
 	position: relative;
 	/* top: 10px;
 	bottom: 0;
@@ -156,7 +164,7 @@ div.tooltip {
         </h1>
 
         <div  id="wrapper-chart" >
-          <div class="graph" id="viz" style="min-width: 500px; width: 1000px; height: 400px; overflow-y: scroll "> </div>
+          <div class="graph" id="viz" style="width: 1000px; height: 400px; overflow-y: scroll"> </div>
           <div id="xaxis"></div>
         </div>
 
