@@ -57,6 +57,12 @@ div.tooltip {
 
   }
 
+  .left-element {
+    position: absolute;
+    top: 55px;
+    left: 0;
+}
+
 </style>
 
 
@@ -166,6 +172,7 @@ div.tooltip {
         <div  id="wrapper-chart" >
           <div class="graph" id="viz" style="width: 1000px; height: 400px; overflow-y: scroll"> </div>
           <div id="xaxis"></div>
+          <div id="yaxis" class="left-element"></div>
         </div>
 
         <h2>About Visualization</h2>
@@ -249,11 +256,18 @@ var div = d3.select("body").select(".graph").append("div")
 var xaxis_svg = d3.select('#xaxis')
     .append('svg')
     .attr("width", width + margin.left + margin.right)
-  	.attr("height", margin.bottom + 100)
+  	.attr("height", margin.bottom + 60)
     .append('g')
     .attr("transform", "translate(" + margin.left + "," + 0 + ")");
 
-
+var yaxis_svg = d3.select('#yaxis')
+    .append('svg')
+    .attr("width", 100)
+  	.attr("height", 200)
+    .append('g')
+    .attr("transform", "translate(" +15+ "," + 100+ ")");
+ 
+    
 
 
 var number = d3.format(",");
@@ -290,48 +304,64 @@ var number = d3.format(",");
 
 
 
-xaxis_svg.append('g')
+  xaxis_svg.append('g')
     .attr('class', 'x axis')
     .attr('transform', 'translate(0,' + 0 + ')')
     .call(d3.axisBottom(x))
 
-   svg.append("g")
+  svg.append("g")
     .attr('class', 'y axis')
     .call(d3.axisLeft(y));
-    
+
+
+  xaxis_svg.append("text")             
+      .attr("transform",
+            "translate(" + 350 + " ," + 35 + ")")
+      .style("text-anchor", "middle")
+      .text("Number of Articles");
+
+
+  yaxis_svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("x",-50)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")    
+      .text("Keywords");
+
 
 
 xaxis_svg.append("circle")
-  .attr("cx", 20)
-  .attr("cy", margin.bottom)
+  .attr("cx", 50)
+  .attr("cy", margin.bottom+20)
   .attr("r", 5)
   .style("fill", color("creative_works"))
   .style("stroke", "black")
 
   xaxis_svg.append("circle")
-  .attr("cx", 145)
-  .attr("cy", margin.bottom)
+  .attr("cx", 175)
+  .attr("cy", margin.bottom+20)
   .attr("r", 5)
   .style("fill",  color("persons"))
   .style("stroke", "black")
 
   xaxis_svg.append("circle")
-  .attr("cx", 230)
-  .attr("cy", margin.bottom)
+  .attr("cx", 260)
+  .attr("cy", margin.bottom+20)
   .attr("r", 5)
   .style("fill",  color("organizations"))
   .style("stroke", "black")
   
   xaxis_svg.append("circle")
-  .attr("cx", 350)
-  .attr("cy", margin.bottom)
+  .attr("cx", 380)
+  .attr("cy", margin.bottom+20)
   .attr("r", 5)
   .style("fill", color("subject"))
   .style("stroke", "black")
 
   xaxis_svg.append("circle")
-  .attr("cx", 430)
-  .attr("cy", margin.bottom)
+  .attr("cx", 460)
+  .attr("cy", margin.bottom+20)
   .attr("r", 5)
   .style("fill", color("glocations"))
   .style("stroke", "black")
@@ -340,36 +370,36 @@ xaxis_svg.append("circle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 30)
-  .attr("y", 34)
+  .attr("x", 60)
+  .attr("y", 54)
   .text("creative works")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 155)
-  .attr("y", 34)
+  .attr("x", 185)
+  .attr("y", 54)
   .text("persons")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x",240)
-  .attr("y", 34)
+  .attr("x",270)
+  .attr("y", 54)
   .text("organizations")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 360)
-  .attr("y", 34)
+  .attr("x", 390)
+  .attr("y", 54)
   .text("subject")
   .attr("alignment-baseline", "middle")
 
   xaxis_svg.append("text")
   .attr("class", "legend-text")
-  .attr("x", 440)
-  .attr("y", 34)
+  .attr("x", 470)
+  .attr("y", 54)
   .text("glocations")
   .attr("alignment-baseline", "middle")
 
