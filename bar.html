@@ -166,7 +166,7 @@ div.tooltip {
       <!-- Begin page content -->
       <div class="content">
         <h1 class="title has-text-centered">
-          Top 100 NYT Keywords(1891-2019)
+          Top 100 NYT Keywords(1891-2020)
         </h1>
 
         <div  id="wrapper-chart" >
@@ -177,7 +177,7 @@ div.tooltip {
 
         <h2>About Visualization</h2>
 
-        <p>This visualization showcases the top 100 used keywords from U.S. news articles ranging from 1891 to 2019. The bars are ordered by the highest to the lowest count of most used keywords and
+        <p>This visualization showcases the top 100 used keywords from U.S. news articles ranging from 1891 to 2020. The bars are ordered by the highest to the lowest count of most used keywords and
            are color-coded by the category that the keyword is under as well (ex. if the keyword is a person, organization, geographic location, etc). The color legend is below the graph to 
           label what color stands for which category it represents.
         </p>
@@ -205,17 +205,19 @@ d3.json("CategoryResult.json").then(function(json) {
 data = []
 
 for(i = 0; i < 100; i++) {
-data.push(json[i])
+  data.push(json[i])
 }
 
 word = data.map(value => value.value);
 count = data.map(value => value.count);
 maxcategory = data.map(value => value.key);
 
-category = maxcategory.filter((c, index) => {
-    return maxcategory.indexOf(c) === index;
-});
+// category = maxcategory.filter((c, index) => {
+//     return maxcategory.indexOf(c) === index;
+// });
 
+
+category = [ "glocations", "subject", "organizations", "persons", "creative_works" ]
 console.log(category)
 
 
